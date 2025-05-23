@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2025-05-23 14:05:16
  * @LastEditors: zhanghan
- * @LastEditTime: 2025-05-23 14:06:09
+ * @LastEditTime: 2025-05-23 14:22:31
  * @FilePath: \hugo_test\content\about.md
  * @Description: 
 -->
@@ -12,7 +12,7 @@ date: 2022-06-27T15:12:50+08:00
 ---
 
 {{< admonition type=tip title="Title" open=true >}}
-**测试野生程序员**
+**测试野生程序123123员**
 {{< /admonition >}}
 
 

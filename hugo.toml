@@ -3,7 +3,7 @@ baseURL = "http://example.org/"
 theme = "LoveIt"
 
 # 网站标题
-title = "Phyger's Site"
+title = "瑾安's Site"
 
 # 网站语言, 仅在这里 CN 大写 ["en", "zh-CN", "fr", "pl", ...]
 languageCode = "zh-CN"
@@ -14,8 +14,8 @@ hasCJKLanguage = true
 
 # 作者配置
 [author]
-  name = "phyger"
-  email = "phygerr@gmail.com"
+  name = "瑾安"
+  email = "瑾安r@gmail.com"
   link = "https://www.u1s1.vip"
 
 # 菜单配置

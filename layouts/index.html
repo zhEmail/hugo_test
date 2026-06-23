@@ -1,0 +1,91 @@
+{{- define "content" -}}
+    {{- $params := .Scratch.Get "params" -}}
+    {{- $posts := .Site.Params.home.posts -}}
+
+    <link rel="stylesheet" href="{{ "css/han-home.css?v=20260623-fullscreen-2" | relURL }}">
+
+    <div class="page home han-home"{{ if ne $posts.enable false }} data-home="posts"{{ end }}>
+        <section class="han-hero" aria-labelledby="han-hero-title">
+            <canvas class="han-hero-canvas" data-han-hero-canvas aria-hidden="true"></canvas>
+            <div class="han-cursor-ring" data-han-cursor aria-hidden="true">Han</div>
+            <div class="han-hero-grid" aria-hidden="true"></div>
+            <div class="han-hero-scan" aria-hidden="true"></div>
+            <div class="han-hero-noise" aria-hidden="true"></div>
+            <div class="han-hero-orbit" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="han-hero-marquee" aria-hidden="true">FRONTEND SYSTEMS</div>
+            <div class="han-hero-inner">
+                <p class="han-hero-kicker">Frontend Systems / React / Vue / Performance</p>
+                <h1 id="han-hero-title" class="han-hero-title">Han's Blog</h1>
+                <p class="han-hero-copy">
+                    张晗的前端技术现场，记录架构治理、复杂交互、性能优化与工程化实践。
+                </p>
+                <div class="han-hero-actions" aria-label="首页快捷入口">
+                    <a class="han-hero-action primary" href="{{ "/posts/" | relURL }}">阅读文章</a>
+                    <a class="han-hero-action" href="{{ "/about/" | relURL }}">关于张晗</a>
+                </div>
+                <div class="han-hero-stack" aria-label="技术栈">
+                    <span>TypeScript</span>
+                    <span>React 18</span>
+                    <span>Vue3</span>
+                    <span>Vite</span>
+                    <span>Core Web Vitals</span>
+                </div>
+            </div>
+            <div class="han-hero-meter" aria-hidden="true">
+                <p class="han-meter-label">System Depth</p>
+                <p class="han-meter-value">05<span>yrs</span></p>
+                <p class="han-meter-foot">Architecture · UI Runtime · Web Vitals</p>
+            </div>
+            <div class="han-hero-console" aria-hidden="true">
+                <div class="han-console-bar">
+                    <span></span><span></span><span></span>
+                </div>
+                <pre><code>const architecture = compose({
+  boundary: 'clear',
+  delivery: 'stable',
+  observability: 'always-on'
+})
+
+render(&lt;HanBlog focus="frontend-depth" /&gt;)</code></pre>
+            </div>
+        </section>
+
+        {{- if .Content -}}
+            <div class="single">
+                <div class="content" id="content">
+                    {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}
+                </div>
+            </div>
+        {{- end -}}
+
+        {{- if ne $posts.enable false | and .Site.RegularPages -}}
+            <section class="han-posts" aria-label="最新文章">
+                <div class="han-posts-heading">
+                    <p>Latest Notes</p>
+                    <h2>最新技术文章</h2>
+                </div>
+                {{- $pages := where .Site.RegularPages "Type" "posts" -}}
+                {{- if .Site.Params.page.hiddenFromHomePage -}}
+                    {{- $pages = where $pages "Params.hiddenfromhomepage" false -}}
+                {{- else -}}
+                    {{- $pages = where $pages "Params.hiddenfromhomepage" "!=" true -}}
+                {{- end -}}
+                {{- with $posts.paginate | default .Site.Params.paginate -}}
+                    {{- $pages = $.Paginate $pages . -}}
+                {{- else -}}
+                    {{- $pages = .Paginate $pages -}}
+                {{- end -}}
+                {{- range $pages.Pages -}}
+                    {{- .Render "summary" -}}
+                {{- end -}}
+                {{- partial "paginator.html" . -}}
+            </section>
+        {{- end -}}
+    </div>
+
+    <script src="{{ "js/han-home.js?v=20260623-fullscreen-2" | relURL }}" defer></script>
+{{- end -}}

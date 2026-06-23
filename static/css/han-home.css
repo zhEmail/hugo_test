@@ -1,0 +1,638 @@
+:root {
+  --han-ink: #05060a;
+  --han-paper: #f8fbff;
+  --han-cyan: #19e6ff;
+  --han-amber: #ffb733;
+  --han-rose: #ff3d7f;
+  --han-violet: #7b61ff;
+  --han-lime: #a6ff4d;
+  --han-muted: rgba(247, 244, 238, 0.72);
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+.main .container {
+  max-width: 100%;
+  width: 100%;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.page.home.han-home {
+  max-width: none !important;
+  width: 100vw;
+  min-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-top: 0 !important;
+  overflow: hidden;
+}
+
+.han-hero {
+  position: relative;
+  display: grid;
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100svh;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(4.4rem, 9vw, 7.8rem) clamp(1rem, 5.8vw, 6.5rem) clamp(4rem, 7vw, 5.8rem);
+  color: var(--han-paper);
+  background:
+    radial-gradient(circle at 54% 46%, rgba(25, 230, 255, 0.16), transparent 20rem),
+    radial-gradient(circle at 72% 35%, rgba(123, 97, 255, 0.24), transparent 26rem),
+    radial-gradient(circle at 18% 72%, rgba(255, 183, 51, 0.13), transparent 24rem),
+    linear-gradient(118deg, #05060a 0%, #090d16 48%, #120716 100%);
+  isolation: isolate;
+}
+
+.han-hero::after {
+  position: absolute;
+  right: clamp(1rem, 6vw, 5rem);
+  bottom: 1.4rem;
+  z-index: 1;
+  color: rgba(247, 244, 238, 0.42);
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  content: "scroll / latest posts";
+  animation: hanPulse 1.8s ease-in-out infinite;
+}
+
+.han-hero-canvas,
+.han-hero-grid,
+.han-hero-scan,
+.han-hero-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.han-hero-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.95;
+}
+
+.han-hero-grid {
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(25, 230, 255, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 230, 255, 0.13) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 58% 45%, black 0 38%, transparent 74%);
+  transform: perspective(800px) rotateX(58deg) translateY(8%);
+  transform-origin: center bottom;
+  animation: hanGridDrift 10s linear infinite;
+}
+
+.han-hero-scan {
+  z-index: 3;
+  background: linear-gradient(180deg, transparent, rgba(25, 230, 255, 0.2), transparent);
+  transform: translateY(-100%);
+  animation: hanScan 5.8s ease-in-out 0.4s infinite;
+}
+
+.han-hero-noise {
+  z-index: 4;
+  opacity: 0.11;
+  background-image:
+    repeating-radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.5) 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
+}
+
+.han-cursor-ring {
+  position: absolute;
+  left: var(--han-pointer-x, 50%);
+  top: var(--han-pointer-y, 50%);
+  z-index: 5;
+  display: grid;
+  width: 6.8rem;
+  height: 6.8rem;
+  place-items: center;
+  border: 1px solid rgba(25, 230, 255, 0.45);
+  border-radius: 50%;
+  color: rgba(248, 251, 255, 0.7);
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+  opacity: var(--han-pointer-opacity, 0);
+  box-shadow: 0 0 3rem rgba(25, 230, 255, 0.22);
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.han-cursor-ring::before,
+.han-cursor-ring::after {
+  position: absolute;
+  inset: 0.55rem;
+  border: 1px solid rgba(255, 183, 51, 0.28);
+  border-radius: 50%;
+  content: "";
+  animation: hanOrbitSpin 4s linear infinite;
+}
+
+.han-cursor-ring::after {
+  inset: -0.75rem;
+  border-color: rgba(255, 61, 127, 0.22);
+  animation-duration: 7s;
+  animation-direction: reverse;
+}
+
+.han-hero-orbit {
+  position: absolute;
+  right: -9vw;
+  top: 50%;
+  z-index: 1;
+  width: min(64vw, 46rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(25, 230, 255, 0.18);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  animation: hanOrbitSpin 22s linear infinite;
+}
+
+.han-hero-orbit::before,
+.han-hero-orbit::after,
+.han-hero-orbit span {
+  position: absolute;
+  border-radius: 50%;
+  content: "";
+}
+
+.han-hero-orbit::before {
+  inset: 12%;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+}
+
+.han-hero-orbit::after {
+  inset: 34%;
+  background: radial-gradient(circle, rgba(25, 230, 255, 0.28), transparent 68%);
+  filter: blur(8px);
+}
+
+.han-hero-orbit span:nth-child(1) {
+  left: 13%;
+  top: 18%;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--han-cyan);
+  box-shadow: 0 0 1.8rem var(--han-cyan);
+}
+
+.han-hero-orbit span:nth-child(2) {
+  right: 21%;
+  bottom: 15%;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: var(--han-amber);
+  box-shadow: 0 0 2rem var(--han-amber);
+}
+
+.han-hero-orbit span:nth-child(3) {
+  left: 46%;
+  bottom: -0.35rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  background: var(--han-rose);
+  box-shadow: 0 0 1.6rem var(--han-rose);
+}
+
+.han-hero-marquee {
+  position: absolute;
+  left: -0.06em;
+  bottom: -0.18em;
+  z-index: 1;
+  color: rgba(248, 251, 255, 0.035);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: clamp(5.8rem, 17vw, 18rem);
+  line-height: 0.8;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.han-hero-inner {
+  position: relative;
+  z-index: 6;
+  max-width: 840px;
+  animation: hanRise 850ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+.han-hero-kicker {
+  margin: 0 0 1.1rem;
+  color: var(--han-amber);
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: clamp(0.78rem, 1.6vw, 0.95rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.han-hero-title {
+  position: relative;
+  max-width: 8.8em;
+  margin: 0;
+  color: var(--han-paper);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: clamp(5rem, 14.8vw, 13.5rem);
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: 0;
+  text-shadow:
+    0.025em 0.02em 0 rgba(25, 230, 255, 0.72),
+    -0.022em -0.016em 0 rgba(255, 61, 127, 0.62),
+    0 0 2.4rem rgba(25, 230, 255, 0.3),
+    0 1.2rem 5rem rgba(0, 0, 0, 0.7);
+  animation: hanTitleFlicker 1.25s steps(2, end) 0.25s both;
+}
+
+.han-hero-title::before,
+.han-hero-title::after {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  content: "Han's Blog";
+  pointer-events: none;
+}
+
+.han-hero-title::before {
+  color: var(--han-cyan);
+  clip-path: inset(0 0 58% 0);
+  transform: translate(0.035em, -0.012em);
+  mix-blend-mode: screen;
+  animation: hanGlitchA 4.2s steps(1, end) infinite;
+}
+
+.han-hero-title::after {
+  color: var(--han-rose);
+  clip-path: inset(62% 0 0 0);
+  transform: translate(-0.025em, 0.018em);
+  mix-blend-mode: screen;
+  animation: hanGlitchB 5.4s steps(1, end) infinite;
+}
+
+.han-hero-copy {
+  max-width: 48rem;
+  margin: 1.55rem 0 0;
+  color: var(--han-muted);
+  font-size: clamp(1.05rem, 2.1vw, 1.34rem);
+  line-height: 1.8;
+}
+
+.han-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.han-hero-action {
+  display: inline-flex;
+  min-height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.15rem;
+  border: 1px solid rgba(247, 244, 238, 0.2);
+  color: var(--han-paper);
+  background: rgba(247, 244, 238, 0.055);
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.han-hero-action:hover,
+.han-hero-action:focus-visible {
+  border-color: rgba(24, 197, 217, 0.78);
+  color: var(--han-paper);
+  background: rgba(24, 197, 217, 0.14);
+  transform: translateY(-2px);
+}
+
+.han-hero-action.primary {
+  border-color: rgba(255, 183, 51, 0.88);
+  color: #101014;
+  background: var(--han-amber);
+  font-weight: 700;
+  box-shadow: 0 0 2.4rem rgba(255, 183, 51, 0.22);
+}
+
+.han-hero-action.primary:hover,
+.han-hero-action.primary:focus-visible {
+  color: #101014;
+  background: #ffc463;
+}
+
+.han-hero-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.3rem;
+}
+
+.han-hero-stack span {
+  padding: 0.38rem 0.58rem;
+  border: 1px solid rgba(247, 244, 238, 0.13);
+  color: rgba(247, 244, 238, 0.66);
+  background: rgba(16, 16, 20, 0.22);
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.78rem;
+}
+
+.han-hero-console {
+  position: relative;
+  z-index: 6;
+  width: min(100%, 600px);
+  justify-self: end;
+  border: 1px solid rgba(247, 244, 238, 0.14);
+  background: linear-gradient(145deg, rgba(8, 10, 18, 0.78), rgba(14, 7, 19, 0.6));
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.48), inset 0 0 2.5rem rgba(25, 230, 255, 0.07);
+  backdrop-filter: blur(18px);
+  animation: hanFloatIn 900ms cubic-bezier(0.2, 0.75, 0.2, 1) 0.18s both, hanConsoleFloat 7s ease-in-out 1.2s infinite;
+}
+
+.han-hero-console::before {
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: linear-gradient(120deg, transparent, rgba(25, 230, 255, 0.7), transparent, rgba(255, 61, 127, 0.55), transparent);
+  content: "";
+  filter: blur(10px);
+  opacity: 0.24;
+}
+
+.han-console-bar {
+  display: flex;
+  gap: 0.45rem;
+  padding: 0.82rem 0.95rem;
+  border-bottom: 1px solid rgba(247, 244, 238, 0.1);
+}
+
+.han-console-bar span {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+}
+
+.han-console-bar span:nth-child(1) {
+  background: var(--han-rose);
+}
+
+.han-console-bar span:nth-child(2) {
+  background: var(--han-amber);
+}
+
+.han-console-bar span:nth-child(3) {
+  background: var(--han-cyan);
+}
+
+.han-hero-console pre {
+  overflow: hidden;
+  margin: 0;
+  padding: clamp(1rem, 3vw, 1.6rem);
+  color: rgba(247, 244, 238, 0.82);
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+  line-height: 1.75;
+}
+
+.han-hero-console code {
+  color: inherit;
+  background: transparent;
+}
+
+.han-hero-meter {
+  position: absolute;
+  left: clamp(1rem, 5.8vw, 6.5rem);
+  bottom: clamp(1.25rem, 4vw, 3.2rem);
+  z-index: 6;
+  min-width: min(21rem, calc(100vw - 2rem));
+  padding: 1rem 1.15rem;
+  border-left: 2px solid var(--han-cyan);
+  background: linear-gradient(90deg, rgba(25, 230, 255, 0.13), transparent);
+  backdrop-filter: blur(8px);
+}
+
+.han-meter-label,
+.han-meter-foot {
+  margin: 0;
+  color: rgba(248, 251, 255, 0.58);
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.han-meter-value {
+  margin: 0.16rem 0 0.1rem;
+  color: var(--han-paper);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  line-height: 0.9;
+}
+
+.han-meter-value span {
+  margin-left: 0.38rem;
+  color: var(--han-amber);
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.92rem;
+}
+
+.han-posts {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 1rem 0;
+}
+
+.han-posts-heading {
+  margin-bottom: 1.2rem;
+}
+
+.han-posts-heading p {
+  margin: 0 0 0.35rem;
+  color: #8a6a28;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.han-posts-heading h2 {
+  margin: 0;
+  color: #1a1b20;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+body[theme="dark"] .han-posts-heading h2 {
+  color: #f7f4ee;
+}
+
+body[theme="dark"] .han-posts-heading p {
+  color: #f0a93a;
+}
+
+@keyframes hanRise {
+  from {
+    opacity: 0;
+    transform: translateY(1.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hanFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(1.8rem) rotateX(8deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+@keyframes hanConsoleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.55rem);
+  }
+}
+
+@keyframes hanGridDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 56px;
+  }
+}
+
+@keyframes hanScan {
+  0%, 42% {
+    transform: translateY(-100%);
+  }
+  68%, 100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes hanPulse {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+@keyframes hanTitleFlicker {
+  0%, 20%, 28%, 100% {
+    opacity: 1;
+  }
+  24% {
+    opacity: 0.74;
+  }
+}
+
+@keyframes hanGlitchA {
+  0%, 88%, 100% {
+    transform: translate(0.035em, -0.012em);
+  }
+  89% {
+    transform: translate(0.07em, -0.03em);
+  }
+  90% {
+    transform: translate(-0.02em, 0);
+  }
+}
+
+@keyframes hanGlitchB {
+  0%, 76%, 100% {
+    transform: translate(-0.025em, 0.018em);
+  }
+  77% {
+    transform: translate(-0.065em, 0.035em);
+  }
+  78% {
+    transform: translate(0.018em, -0.01em);
+  }
+}
+
+@keyframes hanOrbitSpin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (max-width: 860px) {
+  .han-hero {
+    min-height: calc(100svh - 3.5rem);
+    grid-template-columns: 1fr;
+    padding-top: 4.8rem;
+    padding-bottom: 8.8rem;
+  }
+
+  .han-hero-console {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .han-hero-orbit {
+    right: -34vw;
+    width: 95vw;
+    opacity: 0.8;
+  }
+
+  .han-hero-meter {
+    right: 1rem;
+    left: 1rem;
+  }
+
+  .han-hero::after {
+    left: 1.25rem;
+    right: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .han-hero-title {
+    font-size: clamp(4.1rem, 19vw, 5.6rem);
+  }
+
+  .han-hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .han-hero-action {
+    width: 100%;
+  }
+
+  .han-hero-console pre {
+    white-space: pre-wrap;
+  }
+
+  .han-cursor-ring {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .han-hero *,
+  .han-hero::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

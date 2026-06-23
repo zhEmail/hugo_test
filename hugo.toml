@@ -1,4 +1,4 @@
-baseURL = "https://zhEmail.github.io/han_blog/"
+baseURL = "https://zhEmail.github.io/hugo_test/"
 # 更改使用 Hugo 构建网站时使用的默认主题
 
 # 主题
@@ -49,7 +49,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 [author]
   name = "张晗"
   email = "hanemail1127@163.com"
-  link = "https://zhEmail.github.io/han_blog/"
+  link = "https://zhEmail.github.io/hugo_test/"
 
 [params]
   # site default theme ["auto", "light", "dark"]
